@@ -219,3 +219,7 @@ app.use((err, req, res, next) => {
         500
     )
 })
+
+app.listen(port, () => {
+    console.log(`App running on port ${port}.`)
+})
