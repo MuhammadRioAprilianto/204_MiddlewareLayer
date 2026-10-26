@@ -10,7 +10,7 @@ const pool = new Pool({
     user: 'rizoo',
     host: 'localhost',
     database: 'mahasiswa',
-    password: 'R2i8o0406',
+    password: 'riotampan',
     port: 5432,
 })
 
@@ -81,7 +81,9 @@ function validateBody(schema) {
                     message: item.message,
                 }))
             )
-        }    
+        }
+        req.body = value
+        next()    
     }
 }
 
@@ -108,7 +110,7 @@ function validateIdParam(schema) {
 }
 
 app.get('/', async (req, res) => {
-    const result = await pol.query(
+    const result = await pool.query(
         'SELECT * FROM biodata ORDER BY id'
     )
 
@@ -119,13 +121,13 @@ app.get('/', async (req, res) => {
     )
 })
 
-pp.post(
+app.post(
     '/biodata',
     validateBody(biodataSchema),
     async (req, res) => {
         const { id, nama, nim, kelas } = req.body
 
-        const result = await pol.query(
+        const result = await pool.query(
             'INSERT INTO biodata (id, nama, nim, kelas) VALUES ($1, $2, $3, $4) RETURNING *',
             [id ?? null, nama, nim, kelas]
         )
@@ -150,7 +152,7 @@ app.put(
         const { id } = req.params
         const { nama, nim, kelas } = req.body
 
-        const result = await pol.query(
+        const result = await pool.query(
             'UPDATE biodata SET nama = $1, nim = $2, kelas = $3 WHERE id = $4 RETURNING *',
             [nama, nim, kelas, id]
         )
@@ -175,7 +177,7 @@ app.delete(
     async (req, res) => {
         const { id } = req.params
 
-        const result = await pol.query(
+        const result = await pool.query(
             'DELETE FROM biodata WHERE id = $1 RETURNING *',
             [id]
         )
