@@ -1,0 +1,19 @@
+{
+  "dependencies": {
+    "express": "^5.3.0",
+    "joi": "^18.3.0",
+    "pg": "^8.23.1"
+  },
+  "name": "praktikum-7",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "type": "module",
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
