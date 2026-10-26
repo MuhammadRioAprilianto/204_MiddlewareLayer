@@ -106,3 +106,15 @@ function validateIdParam(schema) {
         next()
     }
 }
+
+app.get('/', async (req, res) => {
+    const result = await pol.query(
+        'SELECT * FROM biodata ORDER BY id'
+    )
+
+    return successResponse(
+        res,
+        'Data berhasil diambil',
+        result.rows
+    )
+})
